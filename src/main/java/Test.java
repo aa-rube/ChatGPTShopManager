@@ -26,7 +26,7 @@ public class Test {
         );
 
         Request request = new Request.Builder()
-                .url("http://127.0.0.1:80/api/chat/request")
+                .url("http://191.84.65.59:65001/api/chat/request")
                 .post(body)
                 .build();
 
