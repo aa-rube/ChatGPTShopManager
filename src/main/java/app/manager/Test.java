@@ -1,7 +1,8 @@
+package app.manager;
+
 import okhttp3.*;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
