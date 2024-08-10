@@ -125,7 +125,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>app.Application</mainClass>
+                            <mainClass>app.manager.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
