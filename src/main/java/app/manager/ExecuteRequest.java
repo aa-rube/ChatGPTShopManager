@@ -31,6 +31,7 @@ public class ExecuteRequest {
         this.questionResponse = questionResponse;
     }
 
+
     public Map<String, String> execute(Map<String, String> params) {
         String key = params.getOrDefault("key", "");
         String userQuestion = params.getOrDefault("userRole", "");
@@ -61,7 +62,7 @@ public class ExecuteRequest {
         if (userQuestion.isEmpty() || userQuestion.isBlank()) result.put("404, message error=", "User role is empty");
 
         if (result.isEmpty()) {
-            return  null;
+            return null;
         } else {
             return result;
         }
