@@ -32,7 +32,7 @@ public class QuestionResponse {
                     systemContent);
             return extractContent(resp);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return e.toString();
         }
     }
 
@@ -44,7 +44,7 @@ public class QuestionResponse {
 
         String faq = faqRepository.findAll().toString();
         String systemContent = String.format("Ты менеджер интернет магазина. Твоя задача ответить на вопрос клиента по этим данным часто задаваемых вопросов" +
-                "Отвечай кратко, ясно без воды.\nСписок релевантных ответов на часто задаваемые вопросы: %s", faq);
+                "Отвечай кратко, ясно без воды.\nТаблица вопрос-ответ: %s", faq);
 
         try {
             String resp = chatGPTService.createChatRequest(

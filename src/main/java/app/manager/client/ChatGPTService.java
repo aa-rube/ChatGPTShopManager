@@ -11,8 +11,6 @@ import java.io.IOException;
 
 @Service
 public class ChatGPTService {
-//    private static final String API_KEY = "sk-fjk6DBxrN2WMTWM4JPKhBEsztwCr2-WlJW2-84RSi5T3BlbkFJzyjX9bBSb7cXeFL3kHzOVvARdXf3DHLIifuI0xtWIA";
-
     private final String API_URL;
 
     @Autowired

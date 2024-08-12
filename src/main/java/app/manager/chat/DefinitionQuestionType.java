@@ -33,7 +33,7 @@ public class DefinitionQuestionType {
                 map.put("questionType", "catalogue");
                 return map;
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return Map.of("questionType", "service exception", "service exception", e.toString());
             }
         }
     }

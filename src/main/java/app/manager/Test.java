@@ -17,7 +17,7 @@ public class Test {
         OkHttpClient client = new OkHttpClient();
 
         JSONObject jsonBody = new JSONObject();
-        jsonBody.put("key", "sk-fjk6DBxrN2WMTWM4JPKhBEsztwCr2-WlJW2-84RSi5T3BlbkFJzyjX9bBSb7cXeFL3kHzOVvARdXf3DHLIifuI0xtWIA");
+        jsonBody.put("key", "");
         jsonBody.put("model", "gpt-4o");
         jsonBody.put("userRole", "Какие стулья у вас есть?");
 
@@ -27,7 +27,7 @@ public class Test {
         );
 
         Request request = new Request.Builder()
-                .url("http://191.84.65.59:65001/api/chat/request")
+                .url("http://191.84.68.41:65001/api/chat/request")
                 .post(body)
                 .build();
 

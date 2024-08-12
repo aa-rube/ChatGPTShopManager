@@ -41,7 +41,9 @@ public class ExecuteRequest {
         Map<String, String> map = DefinitionQuestionType.startConversation(chatGPTService, userQuestion, key, model);
 
         String answer = "";
-        if (map.get("questionType").equals("fq")) {
+        if (map.get("questionType").equals("service exception")) {
+            return Map.of("answer", map.getOrDefault("service exception", "service exception"));
+        } else if (map.get("questionType").equals("fq")) {
             answer = questionResponse.createFAQAnswer(key, model, userQuestion, chatGPTService, faqRepository);
         } else {
             answer = questionResponse.createCatalogueAnswer(key, model, userQuestion, map, chatGPTService, furnitureRepository);
