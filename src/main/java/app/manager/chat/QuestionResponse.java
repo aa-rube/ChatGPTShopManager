@@ -3,6 +3,7 @@ package app.manager.chat;
 import app.manager.client.ChatGPTService;
 import app.manager.sheets.repository.FAQRepository;
 import app.manager.sheets.repository.FurnitureRepository;
+import app.manager.util.ChatGptExtractContent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class QuestionResponse {
             FurnitureRepository furnitureRepository) {
 
         String catalogue = furnitureRepository.findByFilters(response).toString();
-        String systemContent = String.format("Ты менеджер интернет магазина. Твоя задача ответить на вопрос клиента по этим данным о наличии товара в магазине. Отвечай кратко, ясно, без воды.\nСписок товара в наличии: %s", catalogue);
+        String systemContent = String.format("%s%s", SystemRoleData.CATALOGUE.getValue(), catalogue);
 
         try {
             String resp = chatGPTService.createChatRequest(
@@ -30,7 +31,7 @@ public class QuestionResponse {
                     model,
                     userQuestion,
                     systemContent);
-            return extractContent(resp);
+            return ChatGptExtractContent.extractContent(resp);
         } catch (IOException e) {
             return e.toString();
         }
@@ -43,8 +44,7 @@ public class QuestionResponse {
                                   FAQRepository faqRepository) {
 
         String faq = faqRepository.findAll().toString();
-        String systemContent = String.format("Ты менеджер интернет магазина. Твоя задача ответить на вопрос клиента по этим данным часто задаваемых вопросов" +
-                "Отвечай кратко, ясно без воды.\nТаблица вопрос-ответ: %s", faq);
+        String systemContent = String.format("%s%s", SystemRoleData.FAQ.getValue(), faq);
 
         try {
             String resp = chatGPTService.createChatRequest(
@@ -52,19 +52,10 @@ public class QuestionResponse {
                     model,
                     userQuestion,
                     systemContent);
-            return extractContent(resp);
+            return ChatGptExtractContent.extractContent(resp);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return e.toString();
         }
     }
 
-    public static String extractContent(String jsonString) {
-        JSONObject jsonObject = new JSONObject(jsonString);
-
-        JSONArray choices = jsonObject.getJSONArray("choices");
-        JSONObject firstChoice = choices.getJSONObject(0);
-        JSONObject message = firstChoice.getJSONObject("message");
-
-        return message.getString("content");
-    }
 }

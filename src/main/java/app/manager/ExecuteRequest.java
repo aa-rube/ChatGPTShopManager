@@ -42,6 +42,7 @@ public class ExecuteRequest {
         Map<String, String> map = DefinitionQuestionType.startConversation(chatGPTService, userQuestion, key, model);
 
         String answer = "";
+
         if (map.get("questionType").equals("service exception")) {
             return Map.of("answer", map.getOrDefault("service exception", "service exception"));
         } else if (map.get("questionType").equals("fq")) {
