@@ -8,9 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ChatGPTService {
+    private final static OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(300, TimeUnit.SECONDS)
+            .build();
+
     private final String API_URL;
 
     @Autowired
@@ -19,8 +26,6 @@ public class ChatGPTService {
     }
 
     public String createChatRequest(String apiKey, String model, String userContent, String systemContent) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("model", model);
         jsonObject.put("messages", new JSONArray()
